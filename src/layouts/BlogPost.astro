@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, toDateAttr } from '../utils/posts';
+import Layout from './Layout.astro';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, tags } = post.data;
+---
+
+<Layout title={title} description={description}>
+	<article>
+		<header>
+			<h1>{title}</h1>
+			<p class="meta">
+				<time datetime={toDateAttr(pubDate)}>{formatDate(pubDate)}</time>
+				{updatedDate && <span>（{formatDate(updatedDate)} 更新）</span>}
+			</p>
+			{
+				tags.length > 0 && (
+					<ul class="tags">
+						{tags.map((tag) => (
+							<li>#{tag}</li>
+						))}
+					</ul>
+				)
+			}
+		</header>
+		<slot />
+	</article>
+	<p class="back"><a href="/blog/">記事一覧に戻る</a></p>
+</Layout>
+
+<style>
+	header {
+		margin-bottom: 2.5rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+
+	h1 {
+		margin-bottom: 0.5rem;
+	}
+
+	.meta {
+		margin: 0;
+		font-size: 0.85rem;
+		color: var(--fg-muted);
+	}
+
+	.tags {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		padding: 0;
+		margin: 0.75rem 0 0;
+		font-size: 0.8rem;
+		color: var(--fg-muted);
+	}
+
+	.back {
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border);
+		font-size: 0.9rem;
+	}
+</style>
