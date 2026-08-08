@@ -1,0 +1,34 @@
+---
+import { SITE_TITLE } from '../consts';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+	<div class="inner">
+		<small>© {year} {SITE_TITLE}</small>
+		<a href="/rss.xml">RSS</a>
+	</div>
+</footer>
+
+<style>
+	footer {
+		border-top: 1px solid var(--border);
+	}
+
+	.inner {
+		max-width: var(--content-width);
+		margin: 0 auto;
+		padding: 1.5rem 1.25rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		font-size: 0.85rem;
+		color: var(--fg-muted);
+	}
+
+	a {
+		color: var(--fg-muted);
+	}
+</style>

@@ -1,0 +1,84 @@
+---
+---
+
+<button type="button" class="theme-toggle" aria-label="配色テーマを切り替える">
+	<svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true">
+		<circle cx="12" cy="12" r="4.5"></circle>
+		<path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"
+		></path>
+	</svg>
+	<svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true">
+		<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path>
+	</svg>
+</button>
+
+<style>
+	.theme-toggle {
+		display: none;
+	}
+
+	:root[data-theme] .theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		padding: 0;
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		background: none;
+		color: var(--fg-muted);
+		cursor: pointer;
+	}
+
+	.theme-toggle:hover {
+		color: var(--fg);
+		background: var(--surface);
+	}
+
+	.icon {
+		width: 1rem;
+		height: 1rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.6;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.sun,
+	.moon {
+		display: none;
+	}
+
+	:root[data-theme='light'] .moon,
+	:root[data-theme='dark'] .sun {
+		display: block;
+	}
+</style>
+
+<script>
+	const KEY = 'theme';
+	const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+	function stored(): string | null {
+		try {
+			return localStorage.getItem(KEY);
+		} catch {
+			return null;
+		}
+	}
+
+	document.querySelector<HTMLButtonElement>('.theme-toggle')?.addEventListener('click', () => {
+		const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+		document.documentElement.dataset.theme = next;
+		try {
+			localStorage.setItem(KEY, next);
+		} catch {}
+	});
+
+	darkQuery.addEventListener('change', (event) => {
+		if (stored()) return;
+		document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+	});
+</script>
