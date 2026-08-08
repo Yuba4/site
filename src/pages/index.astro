@@ -1,11 +1,75 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import PostList from '../components/PostList.astro';
+import { SITE_TITLE } from '../consts';
 import Layout from '../layouts/Layout.astro';
+import { getPublishedPosts } from '../utils/posts';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const latestPosts = (await getPublishedPosts()).slice(0, 3);
+
+const links = [
+	{ href: 'https://github.com/Yuba4', label: 'GitHub' },
+	{ href: 'https://x.com/yuba41', label: 'X' },
+	{ href: 'mailto:yubah4@gmail.com', label: 'Mail' },
+];
 ---
 
 <Layout>
-	<Welcome />
+	<section>
+		<h1>{SITE_TITLE}</h1>
+		<ul class="links">
+			{
+				links.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section>
+		<div class="section-head">
+			<h2>最近の記事</h2>
+			<a href="/blog/">すべて見る</a>
+		</div>
+		{
+			latestPosts.length > 0 ? (
+				<PostList posts={latestPosts} />
+			) : (
+				<p class="empty">まだ記事がない。</p>
+			)
+		}
+	</section>
 </Layout>
+
+<style>
+	.links {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+		padding: 0;
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	.section-head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin: 3.5rem 0 1.25rem;
+	}
+
+	.section-head h2 {
+		margin: 0;
+	}
+
+	.section-head a {
+		font-size: 0.85rem;
+	}
+
+	.empty {
+		color: var(--fg-muted);
+	}
+</style>
