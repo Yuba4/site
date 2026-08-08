@@ -1,0 +1,155 @@
+:root {
+	color-scheme: light dark;
+
+	--bg: light-dark(#fdfdfc, #16171a);
+	--fg: light-dark(#1c1c1a, #e6e6e3);
+	--fg-muted: light-dark(#6d6d68, #9a9a94);
+	--accent: light-dark(#2f6f5e, #7cc4ad);
+	--border: light-dark(#e4e4e0, #2c2e33);
+	--surface: light-dark(#f4f4f1, #202227);
+
+	--content-width: 44rem;
+	--font-sans:
+		system-ui, -apple-system, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
+		'Yu Gothic', sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root[data-theme='light'] {
+	color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+	color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--bg);
+}
+
+body {
+	margin: 0;
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+	font-family: var(--font-sans);
+	font-size: 1rem;
+	line-height: 1.8;
+	color: var(--fg);
+	background: var(--bg);
+	-webkit-font-smoothing: antialiased;
+}
+
+main {
+	flex: 1;
+	width: 100%;
+	max-width: var(--content-width);
+	margin: 0 auto;
+	padding: 3rem 1.25rem 4rem;
+}
+
+h1,
+h2,
+h3 {
+	line-height: 1.4;
+	font-weight: 700;
+	margin: 2.5rem 0 1rem;
+}
+
+h1 {
+	font-size: 1.75rem;
+	margin-top: 0;
+}
+
+h2 {
+	font-size: 1.3rem;
+}
+
+h3 {
+	font-size: 1.1rem;
+}
+
+p,
+ul,
+ol {
+	margin: 0 0 1.25rem;
+}
+
+a {
+	color: var(--accent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+a:hover {
+	text-decoration-thickness: 2px;
+}
+
+img,
+video {
+	max-width: 100%;
+	height: auto;
+}
+
+code {
+	font-family: var(--font-mono);
+	font-size: 0.875em;
+	background: var(--surface);
+	padding: 0.15em 0.35em;
+	border-radius: 4px;
+}
+
+pre {
+	padding: 1rem;
+	border-radius: 8px;
+	overflow-x: auto;
+	line-height: 1.6;
+}
+
+pre code {
+	background: none;
+	padding: 0;
+	font-size: 0.85rem;
+}
+
+blockquote {
+	margin: 1.5rem 0;
+	padding: 0.25rem 0 0.25rem 1rem;
+	border-left: 3px solid var(--border);
+	color: var(--fg-muted);
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid var(--border);
+	margin: 3rem 0;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 1.5rem;
+}
+
+th,
+td {
+	border: 1px solid var(--border);
+	padding: 0.5rem 0.75rem;
+	text-align: left;
+}
+
+th {
+	background: var(--surface);
+}
+
+:where(a, button):focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
