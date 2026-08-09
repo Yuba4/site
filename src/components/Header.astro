@@ -1,27 +1,12 @@
 ---
 import { SITE_TITLE } from '../consts';
 import ThemeToggle from './ThemeToggle.astro';
-
-const path = Astro.url.pathname;
-const links = [
-	{ href: '/', label: 'ホーム' },
-	{ href: '/blog/', label: 'ブログ' },
-];
-
-const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 
 <header>
 	<div class="inner">
 		<a class="site-title" href="/">{SITE_TITLE}</a>
 		<nav>
-			{
-				links.map((link) => (
-					<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
-						{link.label}
-					</a>
-				))
-			}
 			<ThemeToggle />
 		</nav>
 	</div>
@@ -53,21 +38,5 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
 	nav {
 		display: flex;
 		align-items: center;
-		gap: 1.25rem;
-		font-size: 0.9rem;
-	}
-
-	nav a {
-		color: var(--fg-muted);
-		text-decoration: none;
-	}
-
-	nav a:hover,
-	nav a[aria-current='page'] {
-		color: var(--fg);
-	}
-
-	nav a[aria-current='page'] {
-		font-weight: 600;
 	}
 </style>
