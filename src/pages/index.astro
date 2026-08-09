@@ -29,14 +29,14 @@ const links = [
 
 	<section>
 		<div class="section-head">
-			<h2>最近の記事</h2>
-			<a href="/blog/">すべて見る</a>
+			<h2>Recent posts</h2>
+			<a href="/blog/">View all</a>
 		</div>
 		{
 			latestPosts.length > 0 ? (
 				<PostList posts={latestPosts} />
 			) : (
-				<p class="empty">まだ記事がない。</p>
+				<p class="empty">No posts yet.</p>
 			)
 		}
 	</section>
