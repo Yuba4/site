@@ -1,5 +1,7 @@
 allowBuilds:
+  better-sqlite3: true
   esbuild: true
   sharp: true
+  workerd: true
 minimumReleaseAgeExclude:
   - astro@7.2.0

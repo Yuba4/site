@@ -1,9 +1,10 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { formatDate, toDateAttr } from '../utils/posts';
+import type { ContentEntry } from 'emdash';
+import type { Post } from '../utils/posts';
+import { formatDate, postHref, toDateAttr } from '../utils/posts';
 
 interface Props {
-	posts: CollectionEntry<'blog'>[];
+	posts: ContentEntry<Post>[];
 }
 
 const { posts } = Astro.props;
@@ -13,11 +14,15 @@ const { posts } = Astro.props;
 	{
 		posts.map((post) => (
 			<li>
-				<a href={`/blog/${post.id}/`}>
-					<time datetime={toDateAttr(post.data.pubDate)}>{formatDate(post.data.pubDate)}</time>
+				<a href={postHref(post.data)}>
+					{post.data.publishedAt && (
+						<time datetime={toDateAttr(post.data.publishedAt)}>
+							{formatDate(post.data.publishedAt)}
+						</time>
+					)}
 					<span class="title">{post.data.title}</span>
 				</a>
-				<p class="description">{post.data.description}</p>
+				<p class="description">{post.data.excerpt}</p>
 			</li>
 		))
 	}

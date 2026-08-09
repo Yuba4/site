@@ -1,0 +1,22 @@
+---
+import { getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import BlogPost from '../../layouts/BlogPost.astro';
+import type { Post } from '../../utils/posts';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+	return Astro.redirect('/404');
+}
+
+const { entry: post } = await getEmDashEntry<'posts', Post>('posts', slug);
+
+if (!post) {
+	return Astro.redirect('/404');
+}
+---
+
+<BlogPost post={post}>
+	<PortableText value={post.data.content ?? []} />
+</BlogPost>

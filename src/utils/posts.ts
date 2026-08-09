@@ -1,19 +1,31 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getEmDashCollection } from 'emdash';
+import type { Post } from '../../.emdash/types';
 
-export async function getPublishedPosts(): Promise<CollectionEntry<'blog'>[]> {
-	const posts = await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft);
-	return posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+export type { Post };
+
+export async function getPublishedPosts() {
+  const { entries } = await getEmDashCollection<'posts', Post>(
+    'posts',
+    import.meta.env.DEV ? {} : { status: 'published' }
+  );
+  return entries.sort(
+    (a, b) => (b.data.publishedAt?.getTime() ?? 0) - (a.data.publishedAt?.getTime() ?? 0)
+  );
+}
+
+export function postHref(post: Post): string {
+  return `/blog/${post.slug ?? post.id}/`;
 }
 
 export function formatDate(date: Date): string {
-	return date.toLocaleDateString('ja-JP', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-		timeZone: 'Asia/Tokyo',
-	});
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'Asia/Tokyo'
+  });
 }
 
 export function toDateAttr(date: Date): string {
-	return date.toISOString().slice(0, 10);
+  return date.toISOString().slice(0, 10);
 }
