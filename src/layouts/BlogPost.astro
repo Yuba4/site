@@ -1,29 +1,34 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { getEntryTerms, type ContentEntry } from 'emdash';
+import type { Post } from '../utils/posts';
 import { formatDate, toDateAttr } from '../utils/posts';
 import Layout from './Layout.astro';
 
 interface Props {
-	post: CollectionEntry<'blog'>;
+	post: ContentEntry<Post>;
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, updatedDate, tags } = post.data;
+const { id, title, excerpt, publishedAt } = post.data;
+const tags = await getEntryTerms('posts', id, 'tag');
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={excerpt}>
 	<article>
 		<header>
 			<h1>{title}</h1>
-			<p class="meta">
-				<time datetime={toDateAttr(pubDate)}>{formatDate(pubDate)}</time>
-				{updatedDate && <span>（{formatDate(updatedDate)} 更新）</span>}
-			</p>
+			{
+				publishedAt && (
+					<p class="meta">
+						<time datetime={toDateAttr(publishedAt)}>{formatDate(publishedAt)}</time>
+					</p>
+				)
+			}
 			{
 				tags.length > 0 && (
 					<ul class="tags">
 						{tags.map((tag) => (
-							<li>#{tag}</li>
+							<li>#{tag.label}</li>
 						))}
 					</ul>
 				)
@@ -31,7 +36,7 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
 		</header>
 		<slot />
 	</article>
-	<p class="back"><a href="/blog/">記事一覧に戻る</a></p>
+	<p class="back"><a href="/blog/">Back to all posts</a></p>
 </Layout>
 
 <style>

@@ -3,6 +3,10 @@ dist/
 
 # generated types
 .astro/
+emdash-env.d.ts
+
+# emdash local dev state (D1/R2/KV emulation)
+.wrangler/
 
 # dependencies
 node_modules/

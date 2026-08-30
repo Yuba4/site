@@ -1,7 +1,18 @@
 {
   "name": "site",
   "compatibility_date": "2026-08-08",
-  "assets": {
-    "directory": "./dist"
-  }
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "emdash-db",
+      "database_id": "06b4f293-6fbd-4796-b7dd-53c0e06cc6ee"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "emdash-media"
+    }
+  ]
 }

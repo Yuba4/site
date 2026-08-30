@@ -1,0 +1,29 @@
+---
+import { getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import BlogPost from '../../layouts/BlogPost.astro';
+import type { Post } from '../../utils/posts';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+	return Astro.rewrite('/404');
+}
+
+const { entry: post, error } = await getEmDashEntry<'posts', Post>('posts', slug);
+
+if (error) {
+	console.error(`Failed to load post "${slug}"`, error);
+	Astro.response.status = 500;
+} else if (!post) {
+	return Astro.rewrite('/404');
+}
+---
+
+{
+	post && (
+		<BlogPost post={post}>
+			<PortableText value={post.data.content ?? []} />
+		</BlogPost>
+	)
+}
