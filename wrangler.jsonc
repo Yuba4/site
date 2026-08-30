@@ -5,7 +5,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "emdash-db"
+      "database_name": "emdash-db",
+      "database_id": "06b4f293-6fbd-4796-b7dd-53c0e06cc6ee"
     }
   ],
   "r2_buckets": [
