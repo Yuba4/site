@@ -9,8 +9,8 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, excerpt, publishedAt } = post.data;
-const tags = await getEntryTerms('posts', post.id, 'tag');
+const { id, title, excerpt, publishedAt } = post.data;
+const tags = await getEntryTerms('posts', id, 'tag');
 ---
 
 <Layout title={title} description={excerpt}>
