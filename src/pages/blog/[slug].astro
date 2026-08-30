@@ -7,16 +7,23 @@ import type { Post } from '../../utils/posts';
 const { slug } = Astro.params;
 
 if (!slug) {
-	return Astro.redirect('/404');
+	return Astro.rewrite('/404');
 }
 
-const { entry: post } = await getEmDashEntry<'posts', Post>('posts', slug);
+const { entry: post, error } = await getEmDashEntry<'posts', Post>('posts', slug);
 
-if (!post) {
-	return Astro.redirect('/404');
+if (error) {
+	console.error(`Failed to load post "${slug}"`, error);
+	Astro.response.status = 500;
+} else if (!post) {
+	return Astro.rewrite('/404');
 }
 ---
 
-<BlogPost post={post}>
-	<PortableText value={post.data.content ?? []} />
-</BlogPost>
+{
+	post && (
+		<BlogPost post={post}>
+			<PortableText value={post.data.content ?? []} />
+		</BlogPost>
+	)
+}
