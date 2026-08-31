@@ -9,11 +9,17 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { id, title, excerpt, publishedAt } = post.data;
+const { id, title, excerpt, publishedAt, featured_image } = post.data;
 const tags = await getEntryTerms('posts', id, 'tag');
 ---
 
-<Layout title={title} description={excerpt}>
+<Layout
+	title={title}
+	description={excerpt || undefined}
+	image={featured_image?.src}
+	type="article"
+	publishedAt={publishedAt ?? undefined}
+>
 	<article>
 		<header>
 			<h1>{title}</h1>
