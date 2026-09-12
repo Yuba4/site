@@ -1,7 +1,7 @@
 ---
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_OG_IMAGE, SITE_TITLE } from '../consts';
+import { SITE_OG_IMAGE, SITE_TITLE } from '../consts';
 import '../styles/global.css';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 const {
 	title,
-	description = SITE_DESCRIPTION,
+	description,
 	image = SITE_OG_IMAGE,
 	type = 'website',
 	publishedAt,
@@ -41,13 +41,13 @@ const ogImage = new URL(image, Astro.site);
 		/>
 
 		<title>{pageTitle}</title>
-		<meta name="description" content={description} />
+		{description && <meta name="description" content={description} />}
 
 		<meta property="og:type" content={type} />
 		<meta property="og:site_name" content={SITE_TITLE} />
 		<meta property="og:locale" content="ja_JP" />
 		<meta property="og:title" content={pageTitle} />
-		<meta property="og:description" content={description} />
+		{description && <meta property="og:description" content={description} />}
 		<meta property="og:url" content={canonical} />
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:image:alt" content={pageTitle} />
