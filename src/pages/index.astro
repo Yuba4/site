@@ -1,6 +1,5 @@
 ---
 import PostList from '../components/PostList.astro';
-import { SITE_TITLE } from '../consts';
 import Layout from '../layouts/Layout.astro';
 import { getPublishedPosts } from '../utils/posts';
 
@@ -15,7 +14,6 @@ const links = [
 
 <Layout>
 	<section>
-		<h1>{SITE_TITLE}</h1>
 		<ul class="links">
 			{
 				links.map((link) => (
