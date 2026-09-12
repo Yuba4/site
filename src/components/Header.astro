@@ -5,7 +5,7 @@ import ThemeToggle from './ThemeToggle.astro';
 
 <header>
 	<div class="inner">
-		<a class="site-title" href="/">{SITE_TITLE}</a>
+		<span class="site-title">{SITE_TITLE}</span>
 		<nav>
 			<ThemeToggle />
 		</nav>
@@ -23,7 +23,7 @@ import ThemeToggle from './ThemeToggle.astro';
 		padding: 1.25rem;
 		display: flex;
 		align-items: baseline;
-		justify-content: space-between;
+		justify-content: flex-start;
 		gap: 1rem;
 		flex-wrap: wrap;
 	}
@@ -31,8 +31,7 @@ import ThemeToggle from './ThemeToggle.astro';
 	.site-title {
 		font-weight: 700;
 		font-size: 1.05rem;
-		color: var(--fg);
-		text-decoration: none;
+		margin-right: auto;
 	}
 
 	nav {
