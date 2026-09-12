@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss';
 import type { APIRoute } from 'astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_TITLE } from '../consts';
 import { getPublishedPosts, postHref } from '../utils/posts';
 
 export const GET: APIRoute = async (context) => {
@@ -19,7 +19,7 @@ export const GET: APIRoute = async (context) => {
 
 	return rss({
 		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
+		description: SITE_TITLE,
 		site: context.site!,
 		items,
 	});
